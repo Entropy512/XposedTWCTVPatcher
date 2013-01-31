@@ -20,7 +20,7 @@ public class TWCTvPatcher implements IXposedHookLoadPackage {
 					classLoader, "b", XC_MethodReplacement.returnConstant(Boolean.valueOf("false")));
 
 			XposedHelpers.findAndHookMethod("com.twc.android.ui.livetv.LiveTvActivity",
-					classLoader, "w", XC_MethodReplacement.returnConstant(Boolean.valueOf("false")));
+					classLoader, "x", XC_MethodReplacement.returnConstant(Boolean.valueOf("false")));
 		}
 
 	}
