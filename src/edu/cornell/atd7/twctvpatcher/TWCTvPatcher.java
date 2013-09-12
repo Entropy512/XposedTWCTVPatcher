@@ -16,11 +16,14 @@ public class TWCTvPatcher implements IXposedHookLoadPackage {
 		if (lpparam.packageName.equals("com.TWCableTV")) {
 			ClassLoader classLoader = lpparam.classLoader;
 
-			XposedHelpers.findAndHookMethod("com.twc.android.ui.base.TWCApplication",
-					classLoader, "b", XC_MethodReplacement.returnConstant(Boolean.valueOf("false")));
-
-			XposedHelpers.findAndHookMethod("com.twc.android.ui.livetv.LiveTvActivity",
-					classLoader, "x", XC_MethodReplacement.returnConstant(Boolean.valueOf("false")));
+			//Disable VPN checks - happened to be right above the method for adb_enabled checks
+			//grep for tun0 in the source to find if this method changes name
+			XposedHelpers.findAndHookMethod("com.twc.android.ui.base.TWCBaseActivity",
+					classLoader, "D", XC_MethodReplacement.returnConstant(Boolean.valueOf("false")));
+			
+			//Disable ADB checks - look for a method that is checking adb_enabled
+			XposedHelpers.findAndHookMethod("com.twc.android.ui.base.TWCBaseActivity",
+					classLoader, "E", XC_MethodReplacement.returnConstant(Boolean.valueOf("false")));
 		}
 
 	}
